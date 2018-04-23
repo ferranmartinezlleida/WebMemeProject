@@ -42,7 +42,7 @@ Atributs:
 - image (Image Type)
 - author (Foreign key, User,null=False)
 
-L'atribut Title: s'empra per al titol a acompanyar al mem. L'atribut image: s'empra per a guardar el mem en si (Per aixo em fet servir el pck Pillow). L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many, descrita a Django Docs. 
+L'atribut Title: s'empra per al titol a acompanyar al mem. L'atribut image: s'empra per a guardar el mem en si (Per aixo em fet servir el pck Pillow). L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many, descrita a Django Docs, es null=False perque un MEM sempre ha d'estar creat per un usuari. 
 
 
 # Comentari
@@ -52,14 +52,14 @@ L'atribut Title: s'empra per al titol a acompanyar al mem. L'atribut image: s'em
 - commented_meme(Foreign key, Meme,null=True)
 - commented_comment(Foreign key, self,null=True)
 
- L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many, descrita a Django Docs. Els atributs title i text son per a conformar el comentari i el seu titol. Commented_meme i commented_comment s'utilitzen per a relacionar el comentari o be recursivament amb ell mateix o amb un Mem, amb relacions 1-to-Many.
+ L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many, descrita a Django Docs, es null=False perque un comentari sempre ha d'estar creat per un usuari. Els atributs title i text son per a conformar el comentari i el seu titol. Commented_meme i commented_comment s'utilitzen per a relacionar el comentari o be recursivament amb ell mateix o amb un Mem, amb relacions 1-to-Many. Aquest ultims atributs son null=True perque un comentari nomes pot estar associat o be a un MEM o a un altre comentari, d'aquesta forma podrem ficar null segons pertoqui. 
 
 # Vot
 - author (Foreign key, User,null=False)
 - voted_meme (Foreign key, Meme,null=False)
 - value (positive:1,negative:2)
 
-L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many. Voted_meme relaciona el vot amb un mem en concret tambe amb 1-to-Many. Value s'empra per a indicar si el vot es positiu o negatiu utilitzant eines natives de django. 
+L'atribut author s'empra per a associar el mem a un usuari segons la relació 1-to-Many, es null=False perque un vot sempre ha d'estar creat per un usuari. Voted_meme relaciona el vot amb un mem en concret tambe amb 1-to-Many. Value s'empra per a indicar si el vot es positiu o negatiu utilitzant eines natives de django. 
 
 # Tag
 - name (CharType)
