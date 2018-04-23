@@ -5,13 +5,13 @@ Aquest projecte ha estat creat amb la finalitat de donar satisfaccio als requeri
 
 Per tal de llençar adecuadament la aplicacio, hom ha de utilitzar la següent versio de python i els següents paquets:
 
--Versió python 
-Python 3.6
+Versió python 
+- Python 3.6
 
-- Paquets:
-Django==2.0.4
-Pillow==5.0.0
-pytz==2018.4
+Paquets:
+- Django==2.0.4
+- Pillow==5.0.0
+- pytz==2018.4
 
 Els paquets tambe poden trobar-se en el mateix format en l'arxiu requeriments.
 
