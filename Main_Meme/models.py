@@ -7,8 +7,6 @@ from django.utils import timezone
 class Meme(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(default=None)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
@@ -25,9 +23,17 @@ class Comentari(models.Model):
     def __str__(self):
         return 'Comentari: ' + self.title
 
+
+VALUES = (
+        (1, 'Positive'),
+        (2, 'Negative'),
+    )
+
+
 class Vot(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     voted_meme = models.ForeignKey('Meme', on_delete=models.CASCADE, null=True)
+    value = models.PositiveIntegerField(null=True, blank=True, choices=VALUES)
 
     def __str__(self):
         return 'Vot: ' + self.voted_meme
