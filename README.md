@@ -15,6 +15,11 @@ Paquets:
 
 Els paquets tambe poden trobar-se en el mateix format en l'arxiu requeriments.
 
+Per tal d'accedir a les funcions d'administrador, hom ha d'accedir a l'url /admin i utilitar:
+
+usuari: admin
+contrasenya: qwer1234
+
 A continuació descriurem els models emprats en el projecte:
 
 # Models
