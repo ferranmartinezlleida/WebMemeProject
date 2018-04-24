@@ -17,11 +17,15 @@ class Comentari(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=50)
     text = models.CharField(max_length=380)
-    commented_comment = models.ForeignKey('self', on_delete=models.CASCADE,null=True)
-    commented_Meme = models.ForeignKey('Meme', on_delete=models.CASCADE,null=True)
 
-    def __str__(self):
-        return 'Comentari: ' + self.title
+
+class MemeComment(Comentari):
+    commented_meme = models.ForeignKey('Meme', on_delete=models.CASCADE,null=True)
+
+
+class CommentComment(Comentari):
+    related_comment = models.ForeignKey('Comentari', related_name='thread', on_delete=models.CASCADE, null=True)
+
 
 
 VALUES = (
@@ -43,4 +47,4 @@ class Tag(models.Model):
     tagged_memes = models.ManyToManyField(Meme)
 
     def __str__(self):
-        return 'Tag: ' + self.voted_meme
+        return 'Tag: ' + self.name
