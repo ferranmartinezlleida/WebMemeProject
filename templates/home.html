@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8">
-	<title>Cabecera fija</title>
+	<title>Meme Web Project</title>
 
 
 </head>
@@ -12,8 +12,8 @@
 	<header id="main-header">
 
 		<a id="logo-header" href="#">
-			<span class="site-name">WebMemProject</span>
-			<span class="site-desc">Vots / Comentaris / Memes</span>
+			<span class="site-name">The meme Project</span>
+			<span class="site-desc">Web 2.0 FTW</span>
 		</a> <!-- / #logo-header -->
 
 		<nav>
@@ -36,8 +36,9 @@
         {% for meme in memes %}
 		<meme>
 
-            <h1>{{ meme.title }}</h1>
-			<img src="{{ meme.image.url }}" width="600" height="400"/>
+            <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
+
+			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
 
 			<div class="content">
 				<p>{{ meme.author }}</p>

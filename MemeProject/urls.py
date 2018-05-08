@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,6 +22,7 @@ from django.views.generic import TemplateView
 from Main_Meme.views import *
 
 urlpatterns = [
+    url(r'^meme/(?P<meme_id>\d+)/$', memedetails,name="meme"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name="login"),
     path('', home, name="home")
