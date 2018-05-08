@@ -1,5 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Cabecera fija</title>
 
-<h2>Meme Home: </h2>
-<a href="{% url 'login' %}">Login</a>
+
+</head>
+
+<body>
+
+	<header id="main-header">
+
+		<a id="logo-header" href="#">
+			<span class="site-name">WebMemProject</span>
+			<span class="site-desc">Vots / Comentaris / Memes</span>
+		</a> <!-- / #logo-header -->
+
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+				<li><a href="#">Contacto</a></li>
+			</ul>
+		</nav><!-- / nav -->
+
+	</header><!-- / #main-header -->
+
+
+	<section id="main-content">
+
+            <header>
+				<h2>Memes</h2>
+			</header>
+
+        {% for meme in memes %}
+		<meme>
+
+            <h1>{{ meme.title }}</h1>
+			<img src="{{ meme.image.url }}" width="600" height="400"/>
+
+			<div class="content">
+				<p>{{ meme.author }}</p>
+            </div>
+
+		</meme> <!-- /meme -->
+        {% endfor %}
+
+	</section> <!-- / #main-content -->
+
+
+
+
+</body>
+</html>
+
