@@ -23,6 +23,18 @@ def memedetails(request, meme_id):
         context['meme'] = meme
     except Meme.DoesNotExist:
         raise Http404
+
+    if request.method == "POST":
+        dictionaryRequest = request.POST.dict()
+
+        comment = MemeComment()
+        comment.author = User.objects.get(username=dictionaryRequest['author'])
+        comment.title = dictionaryRequest['title']
+        comment.text = dictionaryRequest['body']
+        comment.commented_meme=meme
+        comment.save()
+
+
     try:
         comments = MemeComment.objects.filter(commented_meme=meme)
         context['comments']=comments
