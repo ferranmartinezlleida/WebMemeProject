@@ -27,6 +27,11 @@
 	</header><!-- / #main-header -->
     <section id="main-content">
 
-        <h1>Profile</h1>
-
+    {% if user.is_authenticated %}
+            <h1>Profile</h1>
+            <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+            {% else %}
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
+            {% endif %}
     </section>
