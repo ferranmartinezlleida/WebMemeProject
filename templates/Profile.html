@@ -25,33 +25,13 @@
 		</nav><!-- / nav -->
 
 	</header><!-- / #main-header -->
+    <section id="main-content">
 
-
-	<section id="main-content">
-
-            <header>
-				<h2>Memes</h2>
-			</header>
-
-        {% for meme in memes %}
-		<meme>
-
-            <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
-
-			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
-
-			<div class="content">
-				<p>{{ meme.author }}</p>
-            </div>
-
-		</meme> <!-- /meme -->
-        {% endfor %}
-
-	</section> <!-- / #main-content -->
-
-
-
-
-</body>
-</html>
-
+    {% if user.is_authenticated %}
+            <h1>Profile</h1>
+            <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+            {% else %}
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
+            {% endif %}
+    </section>
