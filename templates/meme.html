@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<title>{{ meme.title}}</title>
 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -25,7 +27,9 @@
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
                 <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
-				        <li><a href="{% url 'profile' %}">Perfil</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Perfil</a></li>
+                {% endif %}
 			</ul>
 		</nav><!-- / nav -->
         <meme>
@@ -48,18 +52,27 @@
                             {% if user.is_authenticated %}
 
 
-                        <div ng-app="">
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-                         <button ng-click="ocultar=true">Fes un comentari</button>
-                            <button ng-click="ocultar=false">Ocultar</button>
 
-                    <form ng-show="ocultar" action ="/meme/{{ meme.id }}/" method="post">{% csrf_token %}
-                <p><textarea name="title" rows="1" cols="40"
+                    <script>
+                    $(document).ready(function(){
+                        $("#hide-{{ comment.pk }}").click(function(){
+                            $("#comment-{{ comment.pk }}").hide();
+                        });
+                        $("#show-{{ comment.pk }}").click(function(){
+                            $("#comment-{{ comment.pk }}").show();
+                        });
+                    });
+                    </script>
+
+                <div>
+                <h><form id="comment-{{ comment.pk }}"><p><textarea name="title" rows="1" cols="40"
                               placeholder=" Introdueix el titol"></textarea></p>
                 <p><textarea name="body" rows="10" cols="40"
                               placeholder=" Introdueix el cos"></textarea><p>
                 <input type="hidden" name="author" value="{{ user.username }}"/>
-                    <p><button type="submit">Fes-lo</button></p></form></div>
+                    <p><button type="submit">Fes-lo</button></p></form></h>
+                                <button id="hide-{{ comment.pk }}">Hide</button>
+                                <button id="show-{{ comment.pk }}">Show</button></div>
 
                     {% endif %}
 

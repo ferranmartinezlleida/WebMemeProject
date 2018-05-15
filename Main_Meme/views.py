@@ -43,6 +43,17 @@ def memedetails(request, meme_id):
 
     return render(request, 'meme.html', context)
 
+
+def profile(request):
+
+    username = None
+    if request.user.is_authenticated:
+        Memes = Meme.objects.filter(author=request.user)
+        context = {'Memes': Memes}
+        return render(request,'Profile.html',context)
+
+    return render(request,'Profile.html')
+
 def uploadMeme(request):
     dictionari = request.POST.dict()
     meme = Meme()
