@@ -44,4 +44,10 @@ def memedetails(request, meme_id):
     return render(request, 'meme.html', context)
 
 def uploadMeme(request):
+    dictionari = request.POST.dict()
+    meme = Meme()
+    meme.title = dictionari['title']
+    meme.image = request.FILES['image']
+    meme.author = User.objects.get(username=dictionari['author'])
+    meme.save()
     return render(request,'upload_succesful.html')
