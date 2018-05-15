@@ -30,17 +30,5 @@
 		</nav><!-- / nav -->
 
 	</header><!-- / #main-header -->
-{% if user.is_authenticated %}
-    <h2>Crea un meme:</h2>
-    <form action="/upload/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-    <p><textarea name="title" rows="1" cols="40"
-                              placeholder=" Introdueix el titol"></textarea></p>
-        <input type="file" name="image" accept="image/*">
-        <input type="hidden" name="author" value="{{ user.username }}">
-        <button type="submit">Upload</button>
-      </form>
-{% else %}
-    <h2>Has d'estar autenticat per a crear MEMS</h2>
-{% endif %}
-</body>
+
+<h2>Upload Succesful</h2>

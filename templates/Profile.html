@@ -19,7 +19,12 @@
 		<nav>
 			<ul>
 				<li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
+                {% if user.is_authenticated %}
+                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
 				<li><a href="{% url 'profile' %}">Perfil</a></li>
 			</ul>
 		</nav><!-- / nav -->
