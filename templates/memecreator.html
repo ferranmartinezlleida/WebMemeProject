@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Meme Creator</title>
+	<meta charset="utf-8">
+	<title>Meme Web Project</title>
+
+
 </head>
+
 <body>
 
+	<header id="main-header">
+
+		<a id="logo-header" href="#">
+			<span class="site-name">The meme Project</span>
+			<span class="site-desc">Web 2.0 FTW</span>
+		</a> <!-- / #logo-header -->
+
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
+                <li><a href="{% url 'profile' %}">Perfil</a></li>
+			</ul>
+		</nav><!-- / nav -->
+
+	</header><!-- / #main-header -->
+{% if user.is_authenticated %}
+    <h2>Crea un meme:</h2>
+    <form action="/upload/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <p><textarea name="title" rows="1" cols="40"
+                              placeholder=" Introdueix el titol"></textarea></p>
+        <input type="file" name="myfile">
+        <button type="submit">Upload</button>
+      </form>
+{% else %}
+    <h2>Has d'estar autenticat per a crear MEMS</h2>
+{% endif %}
 </body>
-</html>

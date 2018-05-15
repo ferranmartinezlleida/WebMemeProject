@@ -22,6 +22,7 @@ from django.views.generic import TemplateView
 from Main_Meme.views import *
 
 urlpatterns = [
+    url(r'^upload/$',uploadMeme,name='upload'),
     url(r'^profile/$',TemplateView.as_view(template_name="Profile.html"),name="profile"),
     url(r'^meme/(?P<meme_id>\d+)/$', memedetails,name="meme"),
     path('admin/', admin.site.urls),

@@ -42,3 +42,6 @@ def memedetails(request, meme_id):
         comments = None
 
     return render(request, 'meme.html', context)
+
+def uploadMeme(request):
+    return render(request,'upload_succesful.html')

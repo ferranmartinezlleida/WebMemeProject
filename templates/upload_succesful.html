@@ -25,18 +25,10 @@
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
                 <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
-				<li><a href="{% url 'profile' %}">Perfil</a></li>
+                <li><a href="{% url 'profile' %}">Perfil</a></li>
 			</ul>
 		</nav><!-- / nav -->
 
 	</header><!-- / #main-header -->
-    <section id="main-content">
 
-    {% if user.is_authenticated %}
-            <h1>Profile</h1>
-            <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
-            {% else %}
-            <p><a class="link" href="{% url 'login' %}">login</a></p>
-            {% endif %}
-    </section>
+<h2>Upload Succesful</h2>
