@@ -25,19 +25,46 @@ def memedetails(request, meme_id):
         raise Http404
 
     if request.method == "POST":
+
         dictionaryRequest = request.POST.dict()
 
-        comment = MemeComment()
-        comment.author = User.objects.get(username=dictionaryRequest['author'])
-        comment.title = dictionaryRequest['title']
-        comment.text = dictionaryRequest['body']
-        comment.commented_meme=meme
-        comment.save()
+        if dictionaryRequest['Object']=="Meme":
+
+            comment = MemeComment()
+            comment.author = User.objects.get(username=dictionaryRequest['author'])
+            comment.title = dictionaryRequest['title']
+            comment.text = dictionaryRequest['body']
+            comment.commented_meme=meme
+            comment.save()
+        elif dictionaryRequest['Object']=="Comment":
+
+            comment_pk = dictionaryRequest['Comment_pk'].split("/")
+            try:
+                related_comment = MemeComment.objects.get(pk=comment_pk[0])
+                comment = CommentComment()
+                comment.author = User.objects.get(username=dictionaryRequest['author'])
+                comment.title = dictionaryRequest['title']
+                comment.text = dictionaryRequest['body']
+                comment.related_comment = related_comment
+                comment.save()
+            except:
+                raise Http404
+
 
 
     try:
         comments = MemeComment.objects.filter(commented_meme=meme)
         context['comments']=comments
+
+        iter = 1
+        for comment in comments:
+            related_comment = comment
+            try:
+                context['ComCommentari'] = {related_comment.pk: CommentComment.objects.filter(related_comment=related_comment)}
+
+            except CommentComment.DoesNotExist:
+                """"""
+
     except MemeComment.DoesNotExist:
         comments = None
 
