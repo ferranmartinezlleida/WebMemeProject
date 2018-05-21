@@ -44,10 +44,21 @@
 
 			<img src="{{ meme.image.url }}" width="600" height="400"/>
 
-
 			<div class="content">
 				<p>{{ meme.author }}</p>
             </div>
+
+            <div class="Votes"><h2>Puntuació Total: {{ totalpuntuation }} Positius: {{ positive }} Negatius: {{ negative }}</h2>
+                {% if user.is_authenticated %}
+             <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
+             <input type="hidden" name="Object" value="Vote"/>
+                 <input type="hidden" name="author" value="user.username"/>
+            <button type="submit" name="value" value="positive">Upvote</button>
+                 <button type="submit"name="value" value="negative">Downvote</button></form>
+                {% else %}
+                <h4>Has d'estar autenticat per votar</h4>
+                {% endif %}</div>
+
                 <h1>Comentaris:</h1>
                     {% for comment in comments %}
                         <comment>

@@ -50,6 +50,45 @@ def memedetails(request, meme_id):
             except:
                 raise Http404
 
+        elif dictionaryRequest['Object'] == "Vote":
+            try:
+                vote = Vot.objects.get(author=request.user)
+                if dictionaryRequest['value']=='positive':
+                    vote.value = 1
+                else:
+                    vote.value = 2
+                vote.save()
+            except:
+                vote = Vot()
+                vote.author = request.user
+                if dictionaryRequest['value'] == 'positive':
+                    vote.value = 1
+                else:
+                    vote.value = 2
+                vote.voted_meme = meme
+                vote.save()
+
+
+    try:
+        votes = Vot.objects.filter(voted_meme=meme)
+
+        context['positive'] = 0
+        context['negative'] = 0
+
+        for vot in votes:
+            if vot.value is 1:
+                context['positive']+=1
+            else:
+                context['negative']+=1
+
+        context['totalpuntuation'] = context['positive'] - context['negative']
+
+    except:
+
+        context['totalpuntuation'] = 0
+        context['positive'] = 0
+        context['negative'] = 0
+
 
 
     try:
@@ -69,6 +108,8 @@ def memedetails(request, meme_id):
         comments = None
 
     return render(request, 'meme.html', context)
+
+
 
 
 def profile(request):

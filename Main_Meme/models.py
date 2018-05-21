@@ -40,7 +40,7 @@ class Vot(models.Model):
     value = models.PositiveIntegerField(null=True, blank=True, choices=VALUES)
 
     def __str__(self):
-        return 'Vot: ' + self.voted_meme
+        return 'Vot: ' + self.voted_meme.title
 
 class Tag(models.Model):
     name = models.CharField(max_length=30)
