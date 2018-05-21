@@ -36,11 +36,29 @@
         {% csrf_token %}
     <p><textarea name="title" rows="1" cols="40"
                               placeholder=" Introdueix el titol"></textarea></p>
+        <p><select name="tag">
+            <option selected value="0"> Introdueix els tags </option>
+            {% for t in tags %}
+                <option value="2">{{t}}</option>
+           <!--
+            <option value="1">Animals</option>
+            <option value="2">Country</option>
+            <option value="3">Cringe</option>
+            <option value="4">Dead Meme</option>
+            <option value="5">Edgy</option>
+            <option value="6">Movies</option>
+            <option value="7">NSFW</option>
+            <option value="8">Politics</option>
+            <option value="9">Sports</option>
+            -->
+            {% endfor %}
+        </select></p>
         <input type="file" name="image" accept="image/*">
+
         <input type="hidden" name="author" value="{{ user.username }}">
         <button type="submit">Upload</button>
       </form>
 {% else %}
-    <h2>Has d'estar autenticat per a crear MEMS</h2>
+    <h2>Has d'estar autenticat per a crear MEMES</h2>
 {% endif %}
 </body>

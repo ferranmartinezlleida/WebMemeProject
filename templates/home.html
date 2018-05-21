@@ -38,6 +38,8 @@
 				<h2>Memes</h2>
 			</header>
 
+		<!-- Insert meme browser here -->
+
         {% for meme in memes %}
 		<meme>
 
@@ -46,6 +48,7 @@
 			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
 
 			<div class="content">
+				<p> Tags : {{ meme.tags }}</p>
 				<p>{{ meme.author }}</p>
             </div>
 

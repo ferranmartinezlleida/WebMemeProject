@@ -35,7 +35,8 @@
 
 
 			<div class="content">
-				<p>{{ meme.author }}</p>
+                <p> Tags: {{ tag }}</p>
+                <p>{{ meme.author }}</p>
             </div>
                 <h1>Comentaris:</h1>
                     {% for comment in comments %}
@@ -43,7 +44,6 @@
                         <h2>{{ comment.title }}</h2>
                         <h4>{{ comment.text }}</h4>
                         <h4>{{ comment.author }}</h4>
-
 
                             {% if user.is_authenticated %}
 

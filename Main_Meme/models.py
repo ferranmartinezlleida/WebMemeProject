@@ -43,8 +43,14 @@ class Vot(models.Model):
         return 'Vot: ' + self.voted_meme
 
 class Tag(models.Model):
-    name = models.CharField(max_length=30)
-    tagged_memes = models.ManyToManyField(Meme)
+    TAG_CHOICES = (
+        (1, 'NSFW'), (2, 'Animals'), (3, 'Edgy'), (5, 'Movies'),
+        (6, 'Dead Meme'), (7, 'Cringe'), (8, 'Sports'),
+        (9, 'Politics'), (10, 'Work'), (11, 'Country')
+    )
+    #tagged_memes = models.ManyToManyField(Meme)
+    tagged_meme = models.ForeignKey('Meme', on_delete=models.CASCADE, null=True)
+    tags = models.PositiveIntegerField(null=True, blank=True, choices=TAG_CHOICES)
 
     def __str__(self):
-        return 'Tag: ' + self.name
+        return 'Tags: ' + self.tags

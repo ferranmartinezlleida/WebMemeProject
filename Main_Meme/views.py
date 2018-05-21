@@ -24,6 +24,7 @@ def memedetails(request, meme_id):
     except Meme.DoesNotExist:
         raise Http404
 
+
     if request.method == "POST":
         dictionaryRequest = request.POST.dict()
 
@@ -37,7 +38,9 @@ def memedetails(request, meme_id):
 
     try:
         comments = MemeComment.objects.filter(commented_meme=meme)
-        context['comments']=comments
+        tagged_meme = Tag.objects.filter(tagged_meme=meme)
+        context['comments'] = comments
+        context['tagged_meme'] = tagged_meme
     except MemeComment.DoesNotExist:
         comments = None
 
@@ -50,4 +53,11 @@ def uploadMeme(request):
     meme.image = request.FILES['image']
     meme.author = User.objects.get(username=dictionari['author'])
     meme.save()
+    tag = Tag()
+    tag.tags = dictionari['tag']
+    try:
+        tag.tagged_meme = Meme.objects.get(title=dictionari['title'])
+    except Meme.DoesNotExist:
+        raise Http404
+    tag.save()
     return render(request,'upload_succesful.html')
