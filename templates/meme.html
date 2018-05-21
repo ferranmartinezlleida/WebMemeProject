@@ -51,10 +51,11 @@
                         {% for key, value in ComCommentari.items %}
                             {% if key == comment.pk %}
 
-                                {% for values in value %}
-                                <h2>{{ values.title }}</h2>
-                                <h4>{{ values.text }}</h4>
-                                <h4>{{ values.author }}</h4>
+                                {% for Comentaricomment in value %}
+                                    <h2>RE: {{comment.title}}</h2>
+                                    <h2>{{ Comentaricomment.title }}</h2>
+                                <h4>{{ Comentaricomment.text }}</h4>
+                                <h4>{{ Comentaricomment.author }}</h4>
                                 {% endfor %}
 
                             {% endif%}
