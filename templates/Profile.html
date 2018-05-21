@@ -44,9 +44,11 @@
 
                 <meme>
 
-                <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
-                <a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="300" height="200"/></a>
+                <h1><a href="/meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
+                <a href="/meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="300" height="200"/></a>
 
+                    <form action="/delete/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <button type="submit"name="Delete" value="{{ meme.id }}">Delete</button></form>
                 </meme>
 
             {% endfor %}

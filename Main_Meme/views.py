@@ -51,8 +51,9 @@ def memedetails(request, meme_id):
                 raise Http404
 
         elif dictionaryRequest['Object'] == "Vote":
+
             try:
-                vote = Vot.objects.get(author=request.user)
+                vote = Vot.objects.get(author=request.user,voted_meme=meme)
                 if dictionaryRequest['value']=='positive':
                     vote.value = 1
                 else:
@@ -121,6 +122,16 @@ def profile(request):
         return render(request,'Profile.html',context)
 
     return render(request,'Profile.html')
+
+
+
+def deleteMeme(request):
+    dictionari = request.POST.dict()
+    meme = Meme.objects.get(id=dictionari['Delete'])
+    title = meme.title
+    meme.delete()
+    return render(request,"meme_delete.html",{"meme_title":title})
+
 
 def uploadMeme(request):
     dictionari = request.POST.dict()
