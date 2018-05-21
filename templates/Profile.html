@@ -37,10 +37,19 @@
     <section id="main-content">
 
     {% if user.is_authenticated %}
-            <h1>Profile</h1>
-            <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
-            {% else %}
-            <p><a class="link" href="{% url 'login' %}">login</a></p>
+
+        <h1>Profile</h1>
+            <p>Benvingut: {{ user.username }}</p>
+        {% for meme in Memes %}
+
+                <meme>
+
+                <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
+                <a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="300" height="200"/></a>
+
+                </meme>
+
+            {% endfor %}
+
             {% endif %}
     </section>

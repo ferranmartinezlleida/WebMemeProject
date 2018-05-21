@@ -23,7 +23,7 @@ from Main_Meme.views import *
 
 urlpatterns = [
     url(r'^upload/$',uploadMeme,name='upload'),
-    url(r'^profile/$',TemplateView.as_view(template_name="Profile.html"),name="profile"),
+    url(r'^profile/$',profile,name="profile"),
     url(r'^meme/(?P<meme_id>\d+)/$', memedetails,name="meme"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name="login"),

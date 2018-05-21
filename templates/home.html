@@ -29,7 +29,9 @@
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
                 <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
-                <li><a href="{% url 'profile' %}">Perfil</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Perfil</a></li>
+                {% endif %}
 			</ul>
 		</nav><!-- / nav -->
 
