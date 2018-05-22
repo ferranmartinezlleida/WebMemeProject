@@ -8,6 +8,7 @@
         <option name="manageScript" value="$MODULE_DIR$/manage.py" />
         <option name="environment" value="&lt;map/&gt;" />
         <option name="doNotUseTestRunner" value="false" />
+        <option name="trackFilePattern" value="migrations" />
       </configuration>
     </facet>
   </component>
@@ -18,7 +19,7 @@
       <excludeFolder url="file://$MODULE_DIR$/enviroment_meme" />
       <excludeFolder url="file://$MODULE_DIR$/meme_env" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (WebMemeProject)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (MemeProject)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyBDDFrameworkConfig">
