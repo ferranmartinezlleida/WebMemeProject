@@ -9,6 +9,58 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+
+<body>
+    <div class="topnav">
+	<header id="main-header">
+
+		<a id="logo-header" href="#">
+			<span class="site-name">The meme Project</span>
+			<span class="site-desc">Web 2.0 FTW</span>
+		</a> <!-- / #logo-header -->
+
+
+				<a href="{% url 'home' %}">Home</a>
+
+
+
+	</header><!-- / #main-header -->
+    </div>
+</body>
+
+
 <form method="post">
 
     <div class="jumbotron text-center">
@@ -16,5 +68,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
+    </div>
 
 </form>

@@ -9,8 +9,41 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+
 <body>
-    <div class="jumbotron text-center">
+    <div class="topnav">
 	<header id="main-header">
 
 		<a id="logo-header" href="#">
@@ -18,19 +51,32 @@
 			<span class="site-desc">Web 2.0 FTW</span>
 		</a> <!-- / #logo-header -->
 
-		<nav>
-			<ul>
-				<li><a href="{% url 'home' %}">Home</a></li>
+
+				<a href="{% url 'home' %}">Home</a>
                 {% if user.is_authenticated %}
-                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                    <a class="link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'login' %}">Login</a>
                 {% endif %}
-                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
-                <li><a href="{% url 'profile' %}">Perfil</a></li>
-			</ul>
-		</nav><!-- / nav -->
+                <a href="{% url 'memecreator' %}">Meme Creator</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">Perfil</a>
+                {% endif %}
+
 
 	</header><!-- / #main-header -->
+    </div>
+</body>
 
-<h2>Upload Succesful</h2>
+
+
+
+
+<body>
+    <div class="jumbotron text-center">
+
+
+
+    <h2>Upload Succesful</h2>
+    </div>
+</body>
