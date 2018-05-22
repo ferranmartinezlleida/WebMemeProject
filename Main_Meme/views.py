@@ -1,5 +1,7 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from Main_Meme.models import *
 
 
@@ -69,6 +71,7 @@ def memedetails(request, meme_id):
                 vote.voted_meme = meme
                 vote.save()
 
+        return HttpResponseRedirect("/meme/"+str(meme.pk))
 
     try:
         votes = Vot.objects.filter(voted_meme=meme)
