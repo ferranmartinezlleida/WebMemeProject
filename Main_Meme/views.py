@@ -1,5 +1,5 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, render_to_response
 from Main_Meme.models import *
 
 
@@ -13,8 +13,6 @@ def home(request):
     template = 'home.html'
     return render(request, template, context)
 
-
-
 def memedetails(request, meme_id):
 
     context = {}
@@ -27,20 +25,15 @@ def memedetails(request, meme_id):
 
     if request.method == "POST":
         dictionaryRequest = request.POST.dict()
-
         comment = MemeComment()
         comment.author = User.objects.get(username=dictionaryRequest['author'])
         comment.title = dictionaryRequest['title']
         comment.text = dictionaryRequest['body']
         comment.commented_meme=meme
         comment.save()
-
-
     try:
         comments = MemeComment.objects.filter(commented_meme=meme)
-        tagged_meme = Tag.objects.filter(tagged_meme=meme)
         context['comments'] = comments
-        context['tagged_meme'] = tagged_meme
     except MemeComment.DoesNotExist:
         comments = None
 
@@ -48,16 +41,11 @@ def memedetails(request, meme_id):
 
 def uploadMeme(request):
     dictionari = request.POST.dict()
+    tag = dictionari["tag"]
     meme = Meme()
     meme.title = dictionari['title']
     meme.image = request.FILES['image']
     meme.author = User.objects.get(username=dictionari['author'])
+    meme.tag = Tag.objects.get(tags=tag)
     meme.save()
-    tag = Tag()
-    tag.tags = dictionari['tag']
-    try:
-        tag.tagged_meme = Meme.objects.get(title=dictionari['title'])
-    except Meme.DoesNotExist:
-        raise Http404
-    tag.save()
     return render(request,'upload_succesful.html')

@@ -8,6 +8,7 @@ class Meme(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(default=None)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    tag = models.ForeignKey('Tag', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return 'Meme: ' + self.title
@@ -44,13 +45,11 @@ class Vot(models.Model):
 
 class Tag(models.Model):
     TAG_CHOICES = (
-        (1, 'NSFW'), (2, 'Animals'), (3, 'Edgy'), (5, 'Movies'),
-        (6, 'Dead Meme'), (7, 'Cringe'), (8, 'Sports'),
-        (9, 'Politics'), (10, 'Work'), (11, 'Country')
+        (1, 'NSFW'), (2, 'Animals'), (3, 'Edgy'), (4, 'Movies'),
+        (5, 'Dead Meme'), (6, 'Cringe'), (7, 'Sports'),
+        (8, 'Politics'), (9, 'Work'), (10, 'Country')
     )
-    #tagged_memes = models.ManyToManyField(Meme)
-    tagged_meme = models.ForeignKey('Meme', on_delete=models.CASCADE, null=True)
     tags = models.PositiveIntegerField(null=True, blank=True, choices=TAG_CHOICES)
 
     def __str__(self):
-        return 'Tags: ' + self.tags
+        return "%s" % (self.TAG_CHOICES[self.tags-1][1])

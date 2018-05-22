@@ -39,6 +39,9 @@
 			</header>
 
 		<!-- Insert meme browser here -->
+		<form action="/" method="post">
+		<input type="text" name="term" size="30"> <input type="submit" value="Search">
+		</form>
 
         {% for meme in memes %}
 		<meme>
@@ -48,7 +51,7 @@
 			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
 
 			<div class="content">
-				<p> Tags : {{ meme.tags }}</p>
+				<p> Tags :  {{ meme.tag }}</p>
 				<p>{{ meme.author }}</p>
             </div>
 
