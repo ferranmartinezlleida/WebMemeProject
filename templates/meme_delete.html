@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Meme Web Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+	<header id="main-header">
+
+		<a id="logo-header" href="#">
+			<span class="site-name">The meme Project</span>
+			<span class="site-desc">Web 2.0 FTW</span>
+		</a> <!-- / #logo-header -->
+
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
+                <li><a href="{% url 'profile' %}">Perfil</a></li>
+			</ul>
+		</nav><!-- / nav -->
+
+	</header><!-- / #main-header -->
+
+        <h2>Delete Succesful</h2>
+        <h2>Deleted meme: {{ meme_title }}</h2>
+    </div>

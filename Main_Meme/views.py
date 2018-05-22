@@ -1,5 +1,7 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from Main_Meme.models import *
 
 
@@ -51,8 +53,9 @@ def memedetails(request, meme_id):
                 raise Http404
 
         elif dictionaryRequest['Object'] == "Vote":
+
             try:
-                vote = Vot.objects.get(author=request.user)
+                vote = Vot.objects.get(author=request.user,voted_meme=meme)
                 if dictionaryRequest['value']=='positive':
                     vote.value = 1
                 else:
@@ -68,6 +71,7 @@ def memedetails(request, meme_id):
                 vote.voted_meme = meme
                 vote.save()
 
+        return HttpResponseRedirect("/meme/"+str(meme.pk))
 
     try:
         votes = Vot.objects.filter(voted_meme=meme)
@@ -121,6 +125,16 @@ def profile(request):
         return render(request,'Profile.html',context)
 
     return render(request,'Profile.html')
+
+
+
+def deleteMeme(request):
+    dictionari = request.POST.dict()
+    meme = Meme.objects.get(id=dictionari['Delete'])
+    title = meme.title
+    meme.delete()
+    return render(request,"meme_delete.html",{"meme_title":title})
+
 
 def uploadMeme(request):
     dictionari = request.POST.dict()
