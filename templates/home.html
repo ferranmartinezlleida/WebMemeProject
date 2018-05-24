@@ -37,10 +37,9 @@
             <header>
 				<h2>Memes</h2>
 			</header>
-
-		<!-- Insert meme browser here -->
-		<form action="/" method="post">
-		<input type="text" name="term" size="30"> <input type="submit" value="Search">
+		<form type="get" action="." style="margin: 0">
+    		<input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+    		<button id="search_submit" type="submit" >Search</button>
 		</form>
 
         {% for meme in memes %}
