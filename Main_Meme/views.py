@@ -129,8 +129,12 @@ def profile(request):
 
 
 def deleteMeme(request):
+
     dictionari = request.POST.dict()
-    meme = Meme.objects.get(id=dictionari['Delete'])
+    try:
+        meme = Meme.objects.get(id=dictionari['Delete'])
+    except:
+        return HttpResponseRedirect("/profile/")
     title = meme.title
     meme.delete()
     return render(request,"meme_delete.html",{"meme_title":title})
