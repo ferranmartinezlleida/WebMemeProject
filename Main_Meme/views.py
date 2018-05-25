@@ -17,7 +17,7 @@ def search_memes(request):
     context = {}
     if request.method == 'GET':  # If the form is submitted
         search_query = request.GET.get('search_box', None)
-        context['memes'] = Meme.objects.filter(title_contains=search_query)
+        context['memes'] = Meme.objects.filter(title__contains=search_query)
     template = 'search.html'
     return render(request, template, context)
 
