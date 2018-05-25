@@ -20,7 +20,7 @@
 
      Scenario: Try to register meme but not logged in
        Given I'm not logged in
-       When I register restaurant
+       When I create meme
          | title              |
          | Ugandan Knuckles   |
        Then I'm redirected to the login form
