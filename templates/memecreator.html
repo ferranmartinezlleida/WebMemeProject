@@ -47,10 +47,6 @@ body {
     <div class="topnav">
 	<header id="main-header">
 
-		<a id="logo-header" href="#">
-			<span class="site-name">The meme Project</span>
-			<span class="site-desc">Web 2.0 FTW</span>
-		</a> <!-- / #logo-header -->
 
 
 				<a href="{% url 'home' %}">Home</a>
@@ -90,8 +86,9 @@ body {
             <option value="8">Politics</option>
             <option value="7">Sports</option>
         </select></p>
-        <input type="file" name="image" accept="image/*">
-
+        <br>
+        <center><input type="file" name="image" accept="image/*"></center>
+        <br>
         <input type="hidden" name="author" value="{{ user.username }}">
         <button type="submit">Upload</button>
 

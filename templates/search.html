@@ -3,35 +3,71 @@
 <head>
 	<meta charset="utf-8">
 	<title>Meme Web Project</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+
 <body>
+    <div class="topnav">
 	<header id="main-header">
-		<a id="logo-header" href="#">
-			<span class="site-name">The meme Project</span>
-			<span class="site-desc">Web 2.0 FTW</span>
-		</a> <!-- / #logo-header -->
 
-		<nav>
-			<ul>
-				<li><a href="{% url 'home' %}">Home</a></li>
+
+
+				<a href="{% url 'home' %}">Home</a>
                 {% if user.is_authenticated %}
-                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                    <a class="link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <a href="{% url 'login' %}">Login</a>
                 {% endif %}
-                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
-                <li><a href="{% url 'profile' %}">Perfil</a></li>
-			</ul>
-		</nav><!-- / nav -->
-
-	</header><!-- / #main-header -->
+                <a href="{% url 'memecreator' %}">Meme Creator</a>
+                <a href="{% url 'profile' %}">Perfil</a>
 
 
+    </div>
+        </header><!-- / #main-header -->
+</body>
+
+<body>
 	<section id="main-content">
-
+        <div class="jumbotron text-center">
             <header>
-				<h2>Memes</h2>
+				<h2>Resultat de la busqueda:</h2>
 			</header>
 		<form type="get" action="." style="margin: 0">
     		<input  id="search_box" type="text" name="search_box"  placeholder="Search...">
@@ -41,9 +77,9 @@
 
         {% for meme in memes %}
 		<meme>
-            <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
+            <h1><a href="/meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
 
-			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
+			<a href="/meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
 
 			<div class="content">
 				<p> Tags :  {{ meme.tag }}</p>
