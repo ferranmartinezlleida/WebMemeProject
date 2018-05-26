@@ -50,10 +50,6 @@ body {
     <div class="topnav">
 	<header id="main-header">
 
-		<a id="logo-header" href="#">
-			<span class="site-name">The meme Project</span>
-			<span class="site-desc">Web 2.0 FTW</span>
-		</a> <!-- / #logo-header -->
 
 
 				<a href="{% url 'home' %}">Home</a>
@@ -87,7 +83,8 @@ body {
 			<img src="{{ meme.image.url }}" width="600" height="400"/>
 
 			<div class="content">
-				<p>{{ meme.author }}</p>
+                <p> Tags: {{meme.tag}}</p>
+                <p>{{ meme.author }}</p>
             </div>
 
             <div class="Votes"><h2>Puntuació Total: {{ totalpuntuation }} Positius: {{ positive }} Negatius: {{ negative }}</h2>
@@ -120,6 +117,7 @@ body {
 
                             {% endif%}
                             {% endfor %}
+
                             {% if user.is_authenticated %}
 
 

@@ -47,10 +47,6 @@ body {
     <div class="topnav">
 	<header id="main-header">
 
-		<a id="logo-header" href="#">
-			<span class="site-name">The meme Project</span>
-			<span class="site-desc">Web 2.0 FTW</span>
-		</a> <!-- / #logo-header -->
 
 
 				<a href="{% url 'home' %}">Home</a>
@@ -77,14 +73,29 @@ body {
     <h2>Crea un meme:</h2>
     <form action="/upload/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-    <p><textarea name="title" rows="1" cols="40"
-                              placeholder=" Introdueix el titol"></textarea></p>
-        <input type="file" name="image" accept="image/*">
+    <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol"></textarea></p>
+        <p><select name="tag">
+            <option selected value="0"> Introdueix un tag </option>
+            <option value="2">Animals</option>
+            <option value="10">Country</option>
+            <option value="6">Cringe</option>
+            <option value="5">Dead Meme</option>
+            <option value="3">Edgy</option>
+            <option value="4">Movies</option>
+            <option value="1">NSFW</option>
+            <option value="8">Politics</option>
+            <option value="7">Sports</option>
+        </select></p>
+        <br>
+        <center><input type="file" name="image" accept="image/*"></center>
+        <br>
         <input type="hidden" name="author" value="{{ user.username }}">
         <button type="submit">Upload</button>
+
     </form>
     {% else %}
         <h2>Has d'estar autenticat per a crear MEMS</h2>
     {% endif %}
     </div>
+
 </body>

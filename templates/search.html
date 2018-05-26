@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Meme Web Project</title>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
+	<title>Meme Web Project</title>
+    <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<style>
 
+</head>
+
+<style>
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -46,30 +48,46 @@ body {
 	<header id="main-header">
 
 
+
 				<a href="{% url 'home' %}">Home</a>
                 {% if user.is_authenticated %}
                     <a class="link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'login' %}">Login</a>
                 {% endif %}
                 <a href="{% url 'memecreator' %}">Meme Creator</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}">Perfil</a>
-                {% endif %}
+                <a href="{% url 'profile' %}">Perfil</a>
 
 
-	</header><!-- / #main-header -->
     </div>
+        </header><!-- / #main-header -->
 </body>
-
 
 <body>
+	<section id="main-content">
+        <div class="jumbotron text-center">
+            <header>
+				<h2>Resultat de la busqueda:</h2>
+			</header>
+		<form type="get" action="." style="margin: 0">
+    		<input  id="search_box" type="text" name="search_box"  placeholder="Search...">
+    		<button id="search_submit" type="submit">Search</button>
 
-    <div class="jumbotron text-center">
-	</header><!-- / #main-header -->
+		</form>
 
-        <h2>Delete Succesful</h2>
-        <h2>Deleted meme: {{ meme_title }}</h2>
-    </div>
+        {% for meme in memes %}
+		<meme>
+            <h1><a href="/meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
 
+			<a href="/meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
+
+			<div class="content">
+				<p> Tags :  {{ meme.tag }}</p>
+				<p>{{ meme.author }}</p>
+            </div>
+
+		</meme> <!-- /meme -->
+		{% endfor %}
+    </section>
 </body>
+</html>
