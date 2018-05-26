@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <title>Meme Web Project</title>
   <meta charset="utf-8">
@@ -9,9 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
 
-<body>
-    <style>
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -69,36 +67,14 @@ body {
     </div>
 </body>
 
+
 <body>
 
     <div class="jumbotron text-center">
+	</header><!-- / #main-header -->
 
-        {% if user.is_authenticated %}
-    <h2>Crea un meme:</h2>
-    <form action="/upload/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-    <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol"></textarea></p>
-        <p><select name="tag">
-            <option selected value="0"> Introdueix un tag </option>
-            <option value="2">Animals</option>
-            <option value="10">Country</option>
-            <option value="6">Cringe</option>
-            <option value="5">Dead Meme</option>
-            <option value="3">Edgy</option>
-            <option value="4">Movies</option>
-            <option value="1">NSFW</option>
-            <option value="8">Politics</option>
-            <option value="7">Sports</option>
-        </select></p>
-        <input type="file" name="image" accept="image/*">
-
-        <input type="hidden" name="author" value="{{ user.username }}">
-        <button type="submit">Upload</button>
-
-    </form>
-    {% else %}
-        <h2>Has d'estar autenticat per a crear MEMS</h2>
-    {% endif %}
+        <h2>Delete Succesful</h2>
+        <h2>Deleted meme: {{ meme_title }}</h2>
     </div>
 
 </body>

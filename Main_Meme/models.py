@@ -14,18 +14,18 @@ class Meme(models.Model):
         return 'Meme: ' + self.title
 
 
-class Comentari(models.Model):
+class MemeComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=50)
     text = models.CharField(max_length=380)
-
-
-class MemeComment(Comentari):
     commented_meme = models.ForeignKey('Meme', on_delete=models.CASCADE,null=True)
 
 
-class CommentComment(Comentari):
-    related_comment = models.ForeignKey('Comentari', related_name='thread', on_delete=models.CASCADE, null=True)
+class CommentComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    title = models.CharField(max_length=50)
+    text = models.CharField(max_length=380)
+    related_comment = models.ForeignKey('MemeComment', on_delete=models.CASCADE, null=True)
 
 
 
@@ -41,7 +41,7 @@ class Vot(models.Model):
     value = models.PositiveIntegerField(null=True, blank=True, choices=VALUES)
 
     def __str__(self):
-        return 'Vot: ' + self.voted_meme
+        return 'Vot: ' + self.voted_meme.title
 
 class Tag(models.Model):
     TAG_CHOICES = (

@@ -1,5 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
+from django.urls import reverse
 from Main_Meme.models import *
 
 
@@ -32,20 +33,118 @@ def memedetails(request, meme_id):
 
 
     if request.method == "POST":
+
         dictionaryRequest = request.POST.dict()
-        comment = MemeComment()
-        comment.author = User.objects.get(username=dictionaryRequest['author'])
-        comment.title = dictionaryRequest['title']
-        comment.text = dictionaryRequest['body']
-        comment.commented_meme=meme
-        comment.save()
+
+        if dictionaryRequest['Object']=="Meme":
+
+            comment = MemeComment()
+            comment.author = User.objects.get(username=dictionaryRequest['author'])
+            comment.title = dictionaryRequest['title']
+            comment.text = dictionaryRequest['body']
+            comment.commented_meme=meme
+            comment.save()
+        elif dictionaryRequest['Object']=="Comment":
+
+            comment_pk = dictionaryRequest['Comment_pk'].split("/")
+            try:
+                related_comment = MemeComment.objects.get(pk=comment_pk[0])
+                comment = CommentComment()
+                comment.author = User.objects.get(username=dictionaryRequest['author'])
+                comment.title = dictionaryRequest['title']
+                comment.text = dictionaryRequest['body']
+                comment.related_comment = related_comment
+                comment.save()
+            except:
+                raise Http404
+
+        elif dictionaryRequest['Object'] == "Vote":
+
+            try:
+                vote = Vot.objects.get(author=request.user,voted_meme=meme)
+                if dictionaryRequest['value']=='positive':
+                    vote.value = 1
+                else:
+                    vote.value = 2
+                vote.save()
+            except:
+                vote = Vot()
+                vote.author = request.user
+                if dictionaryRequest['value'] == 'positive':
+                    vote.value = 1
+                else:
+                    vote.value = 2
+                vote.voted_meme = meme
+                vote.save()
+
+        return HttpResponseRedirect("/meme/"+str(meme.pk))
+
+    try:
+        votes = Vot.objects.filter(voted_meme=meme)
+
+        context['positive'] = 0
+        context['negative'] = 0
+
+        for vot in votes:
+            if vot.value is 1:
+                context['positive']+=1
+            else:
+                context['negative']+=1
+
+        context['totalpuntuation'] = context['positive'] - context['negative']
+
+    except:
+
+        context['totalpuntuation'] = 0
+        context['positive'] = 0
+        context['negative'] = 0
+
+
+
     try:
         comments = MemeComment.objects.filter(commented_meme=meme)
-        context['comments'] = comments
+        context['comments']=comments
+
+        iter = 1
+        for comment in comments:
+            related_comment = comment
+            try:
+                context['ComCommentari'] = {related_comment.pk: CommentComment.objects.filter(related_comment=related_comment)}
+
+            except CommentComment.DoesNotExist:
+                """"""
+
     except MemeComment.DoesNotExist:
         comments = None
 
     return render(request, 'meme.html', context)
+
+
+
+
+def profile(request):
+
+    username = None
+    if request.user.is_authenticated:
+        Memes = Meme.objects.filter(author=request.user)
+        context = {'Memes': Memes}
+        return render(request,'Profile.html',context)
+
+    return render(request,'Profile.html')
+
+
+
+def deleteMeme(request):
+
+    dictionari = request.POST.dict()
+    try:
+        meme = Meme.objects.get(id=dictionari['Delete'])
+    except:
+        return HttpResponseRedirect("/profile/")
+    title = meme.title
+    meme.delete()
+    return render(request,"meme_delete.html",{"meme_title":title})
+
 
 def uploadMeme(request):
     dictionari = request.POST.dict()
