@@ -1,7 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.urls import reverse
-
 from Main_Meme.models import *
 
 
@@ -15,7 +14,13 @@ def home(request):
     template = 'home.html'
     return render(request, template, context)
 
-
+def search_memes(request):
+    context = {}
+    if request.method == 'GET':  # If the form is submitted
+        search_query = request.GET.get('search_box', None)
+        context['memes'] = Meme.objects.filter(title__contains=search_query)
+    template = 'search.html'
+    return render(request, template, context)
 
 def memedetails(request, meme_id):
 
@@ -25,6 +30,7 @@ def memedetails(request, meme_id):
         context['meme'] = meme
     except Meme.DoesNotExist:
         raise Http404
+
 
     if request.method == "POST":
 
@@ -142,9 +148,11 @@ def deleteMeme(request):
 
 def uploadMeme(request):
     dictionari = request.POST.dict()
+    tag = dictionari["tag"]
     meme = Meme()
     meme.title = dictionari['title']
     meme.image = request.FILES['image']
     meme.author = User.objects.get(username=dictionari['author'])
+    meme.tag = Tag.objects.get(tags=tag)
     meme.save()
     return render(request,'upload_succesful.html')

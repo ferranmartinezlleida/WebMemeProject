@@ -87,7 +87,8 @@ body {
 			<img src="{{ meme.image.url }}" width="600" height="400"/>
 
 			<div class="content">
-				<p>{{ meme.author }}</p>
+                <p> Tags: {{meme.tag}}</p>
+                <p>{{ meme.author }}</p>
             </div>
 
             <div class="Votes"><h2>Puntuació Total: {{ totalpuntuation }} Positius: {{ positive }} Negatius: {{ negative }}</h2>
@@ -120,6 +121,7 @@ body {
 
                             {% endif%}
                             {% endfor %}
+
                             {% if user.is_authenticated %}
 
 

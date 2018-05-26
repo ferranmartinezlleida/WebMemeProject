@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Meme Web Project</title>
+
+</head>
+<body>
+	<header id="main-header">
+		<a id="logo-header" href="#">
+			<span class="site-name">The meme Project</span>
+			<span class="site-desc">Web 2.0 FTW</span>
+		</a> <!-- / #logo-header -->
+
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li><a href="{% url 'memecreator' %}">Meme Creator</a></li>
+                <li><a href="{% url 'profile' %}">Perfil</a></li>
+			</ul>
+		</nav><!-- / nav -->
+
+	</header><!-- / #main-header -->
+
+
+	<section id="main-content">
+
+            <header>
+				<h2>Memes</h2>
+			</header>
+		<form type="get" action="." style="margin: 0">
+    		<input  id="search_box" type="text" name="search_box"  placeholder="Search...">
+    		<button id="search_submit" type="submit">Search</button>
+
+		</form>
+
+        {% for meme in memes %}
+		<meme>
+            <h1><a href="meme/{{ meme.pk }}">{{ meme.title }}</a></h1>
+
+			<a href="meme/{{ meme.pk }}"><img src="{{ meme.image.url }}" width="600" height="400"/></a>
+
+			<div class="content">
+				<p> Tags :  {{ meme.tag }}</p>
+				<p>{{ meme.author }}</p>
+            </div>
+
+		</meme> <!-- /meme -->
+		{% endfor %}
+    </section>
+</body>
+</html>
