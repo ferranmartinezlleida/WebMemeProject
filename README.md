@@ -99,5 +99,5 @@ L'atribut tags s'utilitza per a poder relacionar un tag a un mem, amb relació 1
 
 # Project: Part 2
 
-En aquesta part s'han afegit noves característiques, tals com Web 2.0 (en el nostre cas, la possibilitat de que els usuaris crein i esborrin mems i comentaris). També la llibertat d'afegir tags als mems, de votar els mems (de forma que un usuari pot tenir com a molt un vot ja sigui positiu o negatiu associat a un mem).
+En aquesta part s'han afegit noves característiques, tals com Web 2.0 (en el nostre cas, la possibilitat de que els usuaris crein i esborrin mems i comentaris). També la llibertat d'afegir tags als mems, de votar els mems (de forma que un usuari pot tenir com a molt un vot ja sigui positiu o negatiu associat a un mem) i finalment es pot buscar mems gràcies al buscador.
 
