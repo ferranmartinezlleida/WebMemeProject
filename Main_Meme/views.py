@@ -36,6 +36,30 @@ def memedetails(request, meme_id):
 
         dictionaryRequest = request.POST.dict()
 
+        if dictionaryRequest['Object'] == "AlterComment":
+
+            if dictionaryRequest['type'] == "MMC":
+
+                try:
+                    comentari = MemeComment.objects.get(pk=dictionaryRequest['key'])
+                except:
+                    """"""
+            else:
+
+                try:
+                    comentari = CommentComment.objects.get(pk=dictionaryRequest['key'])
+                except:
+                    """"""
+            if dictionaryRequest['Action'] == "Delete":
+
+                comentari.delete()
+
+            else:
+                comentari.text = dictionaryRequest['body']
+                comentari.title = dictionaryRequest['title']
+                comentari.save()
+
+
         if dictionaryRequest['Object']=="Meme":
 
             comment = MemeComment()
@@ -105,12 +129,12 @@ def memedetails(request, meme_id):
         comments = MemeComment.objects.filter(commented_meme=meme)
         context['comments']=comments
 
-        iter = 1
+        dict = {}
         for comment in comments:
             related_comment = comment
+            context['ComComment'] = dict
             try:
-                context['ComCommentari'] = {related_comment.pk: CommentComment.objects.filter(related_comment=related_comment)}
-
+                dict[related_comment.pk] = CommentComment.objects.filter(related_comment=related_comment)
             except CommentComment.DoesNotExist:
                 """"""
 
