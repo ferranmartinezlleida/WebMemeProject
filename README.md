@@ -27,6 +27,12 @@ Per tal d'accedir a les funcions d'administrador, hom ha d'accedir a l'url /admi
 - usuari: admin
 - contrasenya: qwer1234
 
+
+Per tal de fer probes a la web es pot fer servir apart del usuari admin:
+
+- usuari: randomguy
+- contrasenya: qwer1234
+
 A continuació descriurem els models emprats en el projecte:
 
 # Models
