@@ -9,9 +9,16 @@ Versió python
 - Python 3.6
 
 Paquets:
-- Django==2.0.4
-- Pillow==5.0.0
-- pytz==2018.4
+-behave==1.2.6
+-Django==2.0.4
+-parse==1.8.2
+-parse-type==0.4.2
+-Pillow==5.0.0
+-pytz==2018.4
+-selenium==3.12.0
+-six==1.11.0
+-splinter==0.8.0
+
 
 Els paquets tambe poden trobar-se en el mateix format en l'arxiu requeriments.
 
