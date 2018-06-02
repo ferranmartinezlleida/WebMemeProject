@@ -1,284 +1,229 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-	<meta charset="utf-8">
-	<title>{{ meme.title}}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <meta charset="utf-8">
-    <title>{{ meme.title}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<style>
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
-
-
-<body>
-    <div class="topnav">
-	<header id="main-header">
-
-
-
-				<a href="{% url 'home' %}">Home</a>
-                {% if user.is_authenticated %}
-                    <a class="link" href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a>
-                {% endif %}
-                <a href="{% url 'memecreator' %}">Meme Creator</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}">Perfil</a>
-                {% endif %}
-
-
-	</header><!-- / #main-header -->
-    </div>
-</body>
-
-
-
-
-
-<body>
-    <div class="jumbotron text-center">
-	<header id="main-header">
-
-
-        <meme>
-            <h1>{{ meme.title }}</h1>
-
-			<img src="{{ meme.image.url }}" width="600" height="400"/>
-
-			<div class="content">
-                <p> Tags: {{meme.tag}}</p>
-                <p>{{ meme.author }}</p>
-            </div>
-
-            <div class="Votes"><h2>Puntuació Total: {{ totalpuntuation }} Positius: {{ positive }} Negatius: {{ negative }}</h2>
-                {% if user.is_authenticated %}
-             <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
-             <input type="hidden" name="Object" value="Vote"/>
-                 <input type="hidden" name="author" value="user.username"/>
-            <button type="submit" name="value" value="positive">Upvote</button>
-                 <button type="submit"name="value" value="negative">Downvote</button></form>
-                {% else %}
-                <h4>Has d'estar autenticat per votar</h4>
-                {% endif %}</div>
-
-                <h1>Comentaris:</h1>
-                    {% for comment in comments %}
-                        <comment>
-                        <h2>{{ comment.title }}</h2>
-                        <h4>{{ comment.text }}</h4>
-                        <h4>{{ comment.author }}</h4>
-                        {% if user.is_authenticated %}
-                            {% if comment.author == user %}
-
-                <script>
-                    $(document).ready(function(){
-                        $("#AmagaMod-{{ comment.pk}}").click(function(){
-                            $("#commentMod-{{ comment.pk }}").hide();
-                            $("#AmagaMod-{{ comment.pk}}").hide();
-                            $("#ComentariMod-{{ comment.pk}}").show();
-                        });
-                        $("#ComentariMod-{{ comment.pk }}").click(function(){
-                            $("#commentMod-{{ comment.pk }}").show();
-                            $("#AmagaMod-{{ comment.pk}}").show();
-                            $("#ComentariMod-{{ comment.pk}}").hide();
-                        });
-                    });
-                    </script>
-
-
-                                <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
-                                        <input type="hidden" name="key" value={{ comment.pk }} />
-                                        <input type="hidden" name="type" value="MMC"/>
-                                        <input type="hidden" name="Object" value="AlterComment" />
-                                        <input type="hidden" name="Action" value="Delete" />
-                                        <button type="submit">Esborra</button></form>
-
-                                <h4>Comentari:<button id="ComentariMod-{{ comment.pk}}">Modifica</button>
-                                    <button style="display:none" id="AmagaMod-{{ comment.pk}}">Amaga</button>
-                                </h4>
-
-                 <div>
-                 <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="commentMod-{{ comment.pk }}">{% csrf_token %}
-                             <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol">{{ comment.title }}</textarea></p>
-                            <p><textarea name="body" rows="5" cols="40" placeholder=" Introdueix el cos">{{ comment.text }}</textarea><p>
-                        <input type="hidden" name="author" value="{{ user.username }}"/>
-                        <input type="hidden" name="Object" value="AlterComment"/>
-                         <input type="hidden" name="Action" value="Modify" />
-                         <input type="hidden" name="type" value="MMC"/>
-                        <input type="hidden" name="key" value={{ comment.pk }} />
-                     <p><button type="submit">Modifica'l</button></p>
-                 </form></h>
-                 </div>
-
-                                {% endif %}
-
-                        {% endif %}
-
-
-
-
-                        {% for key,value in ComComment.items %}
-                            {% if key == comment.pk %}
-
-                                {% for Comentaricomment in value %}
-                                    <h2>RE: {{comment.title}}</h2>
-                                    <h2>{{ Comentaricomment.title }}</h2>
-                                <h4>{{ Comentaricomment.text }}</h4>
-                                <h4>{{ Comentaricomment.author }}</h4>
-
-                                    {% if user.is_authenticated %}
-                                        {% if Comentaricomment.author == user %}
-
-                <script>
-                    $(document).ready(function(){
-                        $("#AmagaModsub-{{ Comentaricomment.pk}}").click(function(){
-                            $("#commentModsub-{{ Comentaricomment.pk }}").hide();
-                            $("#AmagaModsub-{{ Comentaricomment.pk}}").hide();
-                             $("#ComentariModsub-{{ Comentaricomment.pk}}").show();
-
-                        });
-                        $("#ComentariModsub-{{ Comentaricomment.pk }}").click(function(){
-                            $("#commentModsub-{{ Comentaricomment.pk }}").show();
-                            $("#AmagaModsub-{{ Comentaricomment.pk}}").show();
-                            $("#ComentariModsub-{{ Comentaricomment.pk}}").hide();
-
-                        });
-                    });
-                    </script>
-
-
-                                            <p><form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
-                                        <input type="hidden" name="key" value={{ Comentaricomment.pk }} />
-                                        <input type="hidden" name="type" value="MCC"/>
-                                        <input type="hidden" name="Object" value="AlterComment" />
-                                        <input type="hidden" name="Action" value="Delete" />
-                                        <button type="submit">Esborra</button></form>
-
-
-                                            <h4>Comentari: <button id="ComentariModsub-{{ Comentaricomment.pk}}">Modifica</button>
-                                            <button style="display:none" id="AmagaModsub-{{ Comentaricomment.pk}}">Amaga</button>
-                                            </h4>
-
-                  <div>
-                 <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="commentModsub-{{ Comentaricomment.pk }}">{% csrf_token %}
-                             <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol">{{ Comentaricomment.title }}</textarea></p>
-                            <p><textarea name="body" rows="5" cols="40" placeholder=" Introdueix el cos">{{ Comentaricomment.text }}</textarea><p>
-                        <input type="hidden" name="author" value="{{ user.username }}"/>
-                        <input type="hidden" name="Object" value="AlterComment"/>
-                          <input type="hidden" name="Action" value="Modify" />
-                         <input type="hidden" name="type" value="MCC"/>
-                        <input type="hidden" name="key" value="{{ Comentaricomment.pk }}" />
-                     <p><button type="submit">Modifica'l</button></p>
-                 </form></h>
-                 </div>
-
-
-                                        {% endif %}
-                                    {% endif %}
-
-                                {% endfor %}
-
-                            {% endif%}
-
-
-                            {% endfor %}
-
-
-
-
+    <html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ meme.title}}</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <meta charset="utf-8">
+        <title>{{ meme.title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+    .topnav a {
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .topnav a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    </style>
+    <body>
+        <div class="topnav">
+        <header id="main-header">
+                    <a href="{% url 'home' %}">Home</a>
+                    {% if user.is_authenticated %}
+                        <a class="link" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                    <a href="{% url 'memecreator' %}">Meme Creator</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}">Perfil</a>
+                    {% endif %}
+        </header><!-- / #main-header -->
+        </div>
+    </body>
+    <body>
+        <div class="jumbotron text-center">
+            <span vocab="http://schema.org/" typeof="CreativeWork">
+                <span property="name"><h1>{{ meme.title }}</h1></span>
+                <span property="image"><img src="{{ meme.image.url }}" width="600" height="400"></span>
+                    <p>Tags: <span property="genre">{{meme.tag}}</span></p>
+                    <p><span property="creator" typeof="Person"><span property="name">{{ meme.author }}</span></span></p>
+                    <span rel="potentialAction" typeof ="AskAction">
+                <span rel="question" typeof="question">
+                    <h2>Puntuació Total: {{ totalpuntuation }}
+                    Positius: <span property="upvoteCount">{{ positive }}</span>
+                    Negatius:<span property="downvoteCount">{{ negative }}</span>
+                    </h2></span></span>
+                    {% if user.is_authenticated %}
+                 <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
+                     <input type="hidden" name="Object" value="Vote"/>
+                     <input type="hidden" name="author" value="user.username"/>
+                     <button type="submit" name="value" value="positive">Upvote</button>
+                     <button type="submit"name="value" value="negative">Downvote</button>
+                 </form>
+                    {% else %}
+                    <h4>Has d'estar autenticat per votar</h4>
+                    {% endif %}
+                    <h1>Comentaris:</h1>
+                        {% for comment in comments %}
+                        <span rel="potentialAction" typeof ="CommentAction">
+                            <span rel="resultcomment" typeof="comment">
+                            <h2>{{ comment.title }}</h2>
+                            <h4><span property="text">{{ comment.text }}
+                            </span></h4>
+                            <h4><span property="creator" typeof="Person">
+                            <span property="name">{{ comment.author }}</span></span>
+                            </span><p></p>
                             {% if user.is_authenticated %}
-
-
+                                {% if comment.author == user %}
                     <script>
-                    $(document).ready(function(){
-                        $("#hide-{{ comment.pk }}").click(function(){
-                            $("#comment-{{ comment.pk }}").hide();
+                        $(document).ready(function(){
+                            $("#AmagaMod-{{ comment.pk}}").click(function(){
+                                $("#commentMod-{{ comment.pk }}").hide();
+                                $("#AmagaMod-{{ comment.pk}}").hide();
+                                $("#ComentariMod-{{ comment.pk}}").show();
+                            });
+                            $("#ComentariMod-{{ comment.pk }}").click(function(){
+                                $("#commentMod-{{ comment.pk }}").show();
+                                $("#AmagaMod-{{ comment.pk}}").show();
+                                $("#ComentariMod-{{ comment.pk}}").hide();
+                            });
                         });
-                        $("#show-{{ comment.pk }}").click(function(){
-                            $("#comment-{{ comment.pk }}").show();
+                        </script>
+
+                                    <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
+                                            <input type="hidden" name="key" value={{ comment.pk }} />
+                                            <input type="hidden" name="type" value="MMC"/>
+                                            <input type="hidden" name="Object" value="AlterComment" />
+                                            <input type="hidden" name="Action" value="Delete" />
+                                            <button type="submit">Esborra</button></form>
+                                    <h4>Comentari:<button id="ComentariMod-{{ comment.pk}}">Modifica</button>
+                                        <button style="display:none" id="AmagaMod-{{ comment.pk}}">Amaga</button>
+                                    </h4>
+                     <div>
+                     <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="commentMod-{{ comment.pk }}">{% csrf_token %}
+                                 <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol">{{ comment.title }}</textarea></p>
+                                <p><textarea name="body" rows="5" cols="40" placeholder=" Introdueix el cos">{{ comment.text }}</textarea><p>
+                            <input type="hidden" name="author" value="{{ user.username }}"/>
+                            <input type="hidden" name="Object" value="AlterComment"/>
+                             <input type="hidden" name="Action" value="Modify" />
+                             <input type="hidden" name="type" value="MMC"/>
+                            <input type="hidden" name="key" value={{ comment.pk }} />
+                         <p><button type="submit">Modifica'l</button></p>
+                     </form></h>
+                     </div>
+                                    {% endif %}
+                            {% endif %}
+                            {% for key,value in ComComment.items %}
+                                {% if key == comment.pk %}
+                                    {% for Comentaricomment in value %}
+                      <span rel="potentialAction" typeof ="CommentAction">
+                            <span rel="resultcomment" typeof="comment">
+                                        <h2>RE: {{comment.title}}</h2>
+                                        <h2>{{ Comentaricomment.title }}</h2>
+                                        <h4><span property="text">{{ Comentaricomment.text }}</span></h4>
+                                         <h4>
+                                         <span property="creator" typeof="Person">
+                                         <span property="name">{{ Comentaricomment.author }}</span></span></h4>
+                                    </span></span></span>
+                                        {% if user.is_authenticated %}
+                                            {% if Comentaricomment.author == user %}
+                    <script>
+                        $(document).ready(function(){
+                            $("#AmagaModsub-{{ Comentaricomment.pk}}").click(function(){
+                                $("#commentModsub-{{ Comentaricomment.pk }}").hide();
+                                $("#AmagaModsub-{{ Comentaricomment.pk}}").hide();
+                                 $("#ComentariModsub-{{ Comentaricomment.pk}}").show();
+                            });
+                            $("#ComentariModsub-{{ Comentaricomment.pk }}").click(function(){
+                                $("#commentModsub-{{ Comentaricomment.pk }}").show();
+                                $("#AmagaModsub-{{ Comentaricomment.pk}}").show();
+                                $("#ComentariModsub-{{ Comentaricomment.pk}}").hide();
+                            });
                         });
-                    });
-                    </script>
-
-            {% if user.is_authenticated %}
-                            <div><h2>Comenta el comentari:</h2>
-
-                                <button id="hide-{{ comment.pk }}">Amaga</button>
-                                <button id="show-{{ comment.pk }}">Comenta el comentari</button></div>
+                        </script>
+                                                <p><form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
+                                            <input type="hidden" name="key" value={{ Comentaricomment.pk }} />
+                                            <input type="hidden" name="type" value="MCC"/>
+                                            <input type="hidden" name="Object" value="AlterComment" />
+                                            <input type="hidden" name="Action" value="Delete" />
+                                            <button type="submit">Esborra</button></form>
+                                                <h4>Comentari: <button id="ComentariModsub-{{ Comentaricomment.pk}}">Modifica</button>
+                                                <button style="display:none" id="AmagaModsub-{{ Comentaricomment.pk}}">Amaga</button>
+                                                </h4>
+                      <div>
+                     <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="commentModsub-{{ Comentaricomment.pk }}">{% csrf_token %}
+                                 <p><textarea name="title" rows="1" cols="40" placeholder=" Introdueix el titol">{{ Comentaricomment.title }}</textarea></p>
+                                <p><textarea name="body" rows="5" cols="40" placeholder=" Introdueix el cos">{{ Comentaricomment.text }}</textarea><p>
+                            <input type="hidden" name="author" value="{{ user.username }}"/>
+                            <input type="hidden" name="Object" value="AlterComment"/>
+                              <input type="hidden" name="Action" value="Modify" />
+                             <input type="hidden" name="type" value="MCC"/>
+                            <input type="hidden" name="key" value="{{ Comentaricomment.pk }}" />
+                         <p><button type="submit">Modifica'l</button></p>
+                     </form></h>
+                     </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif%}
+                                {% endfor %}
+                                {% if user.is_authenticated %}
+                        <script>
+                        $(document).ready(function(){
+                            $("#hide-{{ comment.pk }}").click(function(){
+                                $("#comment-{{ comment.pk }}").hide();
+                            });
+                            $("#show-{{ comment.pk }}").click(function(){
+                                $("#comment-{{ comment.pk }}").show();
+                            });
+                        });
+                        </script>
+                {% if user.is_authenticated %}
+                                <div><h2>Comenta el comentari:</h2>
+                                    <button id="hide-{{ comment.pk }}">Amaga</button>
+                                    <button id="show-{{ comment.pk }}">Comenta el comentari</button></div>
+                            {% endif %}
+                              <div>
+                              <br>
+                    <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="comment-{{ comment.pk }}">{% csrf_token %}
+                        <p><textarea name="title" rows="1" cols="40"
+                                  placeholder=" Introdueix el titol"></textarea></p>
+                    <p><textarea name="body" rows="5" cols="40"
+                                  placeholder=" Introdueix el cos"></textarea><p>
+                    <input type="hidden" name="author" value="{{ user.username }}"/>
+                        <input type="hidden" name="Object" value="Comment"/>
+                        <input type="hidden" name="Comment_pk" value="{{ comment.pk }}" />
+                        <p><button type="submit">Fes-lo</button></p></form></h></div>
                         {% endif %}
-                          <div>
-                          <br>
-                <h><form action ="/meme/{{ meme.id }}/" method="post" style="display:none"id="comment-{{ comment.pk }}">{% csrf_token %}
-                    <p><textarea name="title" rows="1" cols="40"
+             </span>
+                        {% endfor %}
+                    <h1>Fes un comentari:</h1>
+            {% if user.is_authenticated %}
+                    <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
+                 <p><textarea name="title" rows="1" cols="40"
                               placeholder=" Introdueix el titol"></textarea></p>
-                <p><textarea name="body" rows="5" cols="40"
+                <p><textarea name="body" rows="10" cols="40"
                               placeholder=" Introdueix el cos"></textarea><p>
                 <input type="hidden" name="author" value="{{ user.username }}"/>
-                    <input type="hidden" name="Object" value="Comment"/>
-                    <input type="hidden" name="Comment_pk" value="{{ comment.pk }}" />
-                    <p><button type="submit">Fes-lo</button></p></form></h></div>
-
-                    {% endif %}
-
-                        </comment>
-
-                    {% endfor %}
-
-
-                <h1>Fes un comentari:</h1>
-        {% if user.is_authenticated %}
-                <form action ="/meme/{{ meme.id }}/" method="post" >{% csrf_token %}
-            <p><textarea name="title" rows="1" cols="40"
-                          placeholder=" Introdueix el titol"></textarea></p>
-            <p><textarea name="body" rows="10" cols="40"
-                          placeholder=" Introdueix el cos"></textarea><p>
-            <input type="hidden" name="author" value="{{ user.username }}"/>
-                        <input type="hidden" name="Object" value="Meme"/>
-            <p><button type="submit">Fes-lo</button></p>
-
-            </form>
-        {% else %}
-                <h2>Has d'estar loggejat per fer comentaris</h2>
-        {% endif %}
-
-
-        </meme>
-	</header><!-- / #main-header -->
-
+                            <input type="hidden" name="Object" value="Meme"/>
+                <p><button type="submit">Fes-lo</button></p>
+                </form>
+            {% else %}
+                    <h2>Has d'estar loggejat per fer comentaris</h2>
+            {% endif %}
+    </span>
+        </div>
+    </body>
