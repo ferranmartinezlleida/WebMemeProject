@@ -103,5 +103,5 @@ En aquesta part s'han afegit noves característiques, tals com Web 2.0 (en el no
 
 # Projecte: Part 3
 
-En aquesta part del projecte s'ha modificat el template meme.html basant-se amb schema.org.
+En aquesta part del projecte s'ha modificat el template meme.html i s'han utilitzat tags com name, genre, text, etc. Basant-se amb schema.org.
 
